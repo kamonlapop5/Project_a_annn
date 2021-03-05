@@ -8,6 +8,8 @@ $f_id = $_GET["f_id"];
 $s_id = $_SESSION["s_id"];
 $m_id1 = $_SESSION["m_id"];
 
+$date = (int)date("d");
+
 $sql = "SELECT * FROM `form` INNER JOIN builing on form.b_id = builing.b_id INNER JOIN place on place.p_id = form.p_id
 INNER JOIN time on time.time_id = form.time_id INNER JOIN status on status.s_id = form.f_status_advisor WHERE f_id = '$f_id' ";
 $result = $mysqli -> query($sql) or die($mysqli->error.__line__);
@@ -28,7 +30,8 @@ while($row = mysqli_fetch_array($result)){
   $f_status_advisor_name = $row['s_name'];
   $f_status_facility_staff_name = $row1['s_name'];
   $f_status_facility_staff = $row['f_status_facility_staff'];
-
+  $f_date_form = substr("$f_date",0, 2);
+  $date_form = (int)$f_date_form ;
 }
  ?>
 </-------------------------------------------------------------------------------->
@@ -73,6 +76,11 @@ while($row = mysqli_fetch_array($result)){
         <td>ผลอนุมัติของอาจารย์ที่ปรึกษา : </td> <td><font color="red"><?php echo "$f_status_advisor_name" ?></font></td>
        </tr>
       <td>&nbsp;</td>
+    <?php }elseif ($date_form <= $date) { ?>
+      <tr>
+        <td>ผลอนุมัติของอาจารย์ที่ปรึกษา : </td> <td><font color="red"><?php echo "เลยเวลาในการอนุมัติ" ?></font></td>
+       </tr>
+      <td>&nbsp;</td>
     <?php }else { ?>
       <tr>
         <td>ผลอนุมัติของผูอาจารย์ที่ปรึกษา : </td> <td><?php echo "$f_status_advisor_name" ?></td>
@@ -89,6 +97,11 @@ while($row = mysqli_fetch_array($result)){
     <?php }elseif ($f_status_facility_staff == 203) { ?>
       <tr>
         <td>ผลอนุมัติของผู้ดูแลสถานที่ : </td> <td><font color="red"><?php echo "$f_status_facility_staff_name" ?></font></td>
+       </tr>
+      <td>&nbsp;</td>
+    <?php }elseif ($date_form <= $date) { ?>
+      <tr>
+        <td>ผลอนุมัติของผู้ดูแลสถานที่ : </td> <td><font color="red"><?php echo "เลยเวลาในการอนุมัติ" ?></font></td>
        </tr>
       <td>&nbsp;</td>
     <?php }else { ?>
@@ -126,7 +139,7 @@ while($row = mysqli_fetch_array($result)){
                 <td align="right"><button type="cancel" style="background-color:BCB684" onclick="window.location='Booking_list.php?station=1';return false;">ย้อนกลับ</button></td>
               </tr>
               <td>&nbsp;</td>
-  <?php }elseif ($f_status_advisor == 201) { ?>
+  <?php }elseif ($f_status_advisor == 201 and ($date_form > $date)) { ?>
     <tr>
           <td>หมายเหตุ (กรณีที่ไม่อนุมัติ) : </td> <td><textarea rows="5" cols="30" name="detail_no_submit" ></textarea></td>
          </tr>
@@ -151,7 +164,7 @@ while($row = mysqli_fetch_array($result)){
         } ?>
 
         <?php if ($s_id == 4){
-                if ($f_status_facility_staff == 203) {?>
+                if ($f_status_facility_staff == 203 ) {?>
                     <tr>
                     <td>หมายเหตุ : </td> <td><?php echo "$f_detail_no_submit" ?></textarea></td>
                     </tr>
@@ -160,7 +173,7 @@ while($row = mysqli_fetch_array($result)){
                       <td align="right"><button type="cancel" style="background-color:BCB684" onclick="window.location='Booking_list.php?station=3';return false;">ย้อนกลับ</button></td>
                     </tr>
                     <td>&nbsp;</td>
-        <?php }elseif ($f_status_facility_staff == 201) { ?>
+        <?php }elseif ($f_status_facility_staff == 201 and ($date_form > $date)) { ?>
           <tr>
                 <td>หมายเหตุ (กรณีที่ไม่อนุมัติ) : </td> <td><textarea rows="5" cols="30" name="detail_no_submit" ></textarea></td>
                </tr>
@@ -186,3 +199,4 @@ while($row = mysqli_fetch_array($result)){
  <?php
  include("./footer.php");
   ?>
+
