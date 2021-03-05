@@ -7,6 +7,12 @@ include("./connect.php");
 $m_id = $_SESSION["m_id"];
 $s_id = $_SESSION["s_id"];
 $station = $_GET["station"];
+
+$date = (int)date("d");
+
+
+$date_now = "$date"." - "."$month"." - "."$year";
+
  ?>
 
     <?php if ($s_id == 2){ ?>
@@ -100,12 +106,20 @@ if ($s_id == '2') {
     echo "<td><center><h7>$p_name</h7></center></td>";
     echo "<td><center><h7>$f_date</h7></center></td>";
     echo "<td><center><h7>$time</h7></center></td>";
+    $f_date_now = substr("$f_date",0, 2);
+    $date_form = (int)$f_date_now ;
+
+
     if ($f_status_advisor == 202){
       echo "<td><center><font color=\"green\"><h7>$f_status_advisor_name</h7></center></td>";
     }elseif ($f_status_advisor == 203) {
       echo "<td><center><font color=\"red\"><h7>$f_status_advisor_name</h7></center></td>";
     }else {
-      echo "<td><center><h7>$f_status_advisor_name</h7></center></td>";
+      if ($date_form <= $date) {
+        echo "<td><center><font color=\"red\"><h7>เลยเวลาในการอนุมัติ</h7></center></td>";
+      }else {
+        echo "<td><center><h7>$f_status_advisor_name</h7></center></td>";
+      }
     }
 
     if ($f_status_facility_staff == 202){
@@ -113,9 +127,12 @@ if ($s_id == '2') {
     }elseif ($f_status_facility_staff == 203) {
       echo "<td><center><font color=\"red\"><h7>$f_status_facility_staff_name</h7></center></td>";
     }else {
-      echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      if ($date_form <= $date) {
+        echo "<td><center><font color=\"red\"><h7>เลยเวลาในการอนุมัติ</h7></center></td>";
+      }else {
+        echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      }
     }
-
 
     if ($f_status_advisor == '201') {
       echo "<td><center><h7><a href=\"./show_detail.php?f_id=$f_id\">รายละเอียด</a>
@@ -156,13 +173,19 @@ if ($s_id == '2') {
     echo "<td><center><h7>$p_name</h7></center></td>";
     echo "<td><center><h7>$f_date</h7></center></td>";
     echo "<td><center><h7>$time</h7></center></td>";
+    $f_date_now = substr("$f_date",0, 2);
+    $date_form = (int)$f_date_now ;
 
     if ($f_status_advisor == 202){
       echo "<td><center><font color=\"green\"><h7>$f_status_advisor_name</h7></center></td>";
     }elseif ($f_status_advisor == 203) {
       echo "<td><center><font color=\"red\"><h7>$f_status_advisor_name</h7></center></td>";
     }else {
-      echo "<td><center><h7>$f_status_advisor_name</h7></center></td>";
+      if ($date_form <= $date) {
+        echo "<td><center><font color=\"red\"><h7>เลยเวลาในการอนุมัติ</h7></center></td>";
+      }else {
+        echo "<td><center><h7>$f_status_advisor_name</h7></center></td>";
+      }
     }
     //
     // if ($f_status_facility_staff == 202){
@@ -173,7 +196,7 @@ if ($s_id == '2') {
     //   echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
     // }
 
-    if ($f_status_advisor == 201 and $s_id == 2) {
+    if ($f_status_advisor == 201) {
       echo "<td><center><h7><a href=\"./show_detail.php?f_id=$f_id\">รายละเอียด</a><a href=\"./delete_book_list.php?f_id=$f_id\"> ลบ</a></center></h6</td> ";
     }else {
       echo "<td><center><h7><a href=\"./show_detail.php?f_id=$f_id\">รายละเอียด</a></center></h6</td> ";
@@ -208,6 +231,8 @@ if ($s_id == '2') {
     echo "<td><center><h7>$p_name</h7></center></td>";
     echo "<td><center><h7>$f_date</h7></center></td>";
     echo "<td><center><h7>$time</h7></center></td>";
+    $f_date_now = substr("$f_date",0, 2);
+    $date_form = (int)$f_date_now ;
 
     // if ($f_status_advisor == 202){
     //   echo "<td><center><font color=\"green\"><h7>$f_status_advisor_name</h7></center></td>";
@@ -222,7 +247,11 @@ if ($s_id == '2') {
     }elseif ($f_status_facility_staff == 203) {
       echo "<td><center><font color=\"red\"><h7>$f_status_facility_staff_name</h7></center></td>";
     }else {
-      echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      if ($date_form <= $date) {
+        echo "<td><center><font color=\"red\"><h7>เลยเวลาในการอนุมัติ</h7></center></td>";
+      }else {
+        echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      }
     }
 
     if ($f_status_facility_staff == 201) {
@@ -262,6 +291,9 @@ if ($s_id == '2') {
     echo "<td><center><h7>$p_name</h7></center></td>";
     echo "<td><center><h7>$f_date</h7></center></td>";
     echo "<td><center><h7>$time</h7></center></td>";
+    $f_date_now = substr("$f_date",0, 2);
+    $date_form = (int)$f_date_now ;
+
 
     // if ($f_status_advisor == 202){
     //   echo "<td><center><font color=\"green\"><h7>$f_status_advisor_name</h7></center></td>";
@@ -276,7 +308,11 @@ if ($s_id == '2') {
     }elseif ($f_status_facility_staff == 203) {
       echo "<td><center><font color=\"red\"><h7>$f_status_facility_staff_name</h7></center></td>";
     }else {
-      echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      if ($date_form <= $date) {
+        echo "<td><center><font color=\"red\"><h7>เลยเวลาในการอนุมัติ</h7></center></td>";
+      }else {
+        echo "<td><center><h7>$f_status_facility_staff_name</h7></center></td>";
+      }
     }
 
 
@@ -295,3 +331,4 @@ if ($s_id == '2') {
 <?php
 include("./footer.php");
  ?>
+
